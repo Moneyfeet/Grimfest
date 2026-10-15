@@ -1,0 +1,29 @@
+body {
+    background-image: url("../filename_00254-3464978092.webp");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.hero {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-size: 2rem;
+    padding: var(--spacing-lg) 10%;
+}
+
+.hero-text {
+    font-family: var(--font-family2);
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+#giphy {
+    flex: 1;
+    max-width: 500px;
+    border-radius: var(--border-radius-md);
+    box-shadow: var(--shadow-lg), var(--shadow-accent);
+}
