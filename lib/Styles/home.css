@@ -44,6 +44,13 @@ body {
     margin-bottom: 20px;
 }
 
+.hero h1 {
+  font-family: var(--heading_font);
+  font-size:clamp(3.8rem,19vw,11rem);
+  line-height:.95;
+  text-shadow:0 5px 0 var(--blood)
+}
+
 .about {
   background: radial-gradient(circle at top left, var(--color-darker), var(--bg-color));
   padding: var(--spacing-xxl) var(--spacing-lg);
@@ -111,5 +118,4 @@ body {
 
 @keyframes cross{from{transform:translateX(-20vw)}to{transform:translateX(120vw)}}
 @keyframes bob{from{transform:translateY(-4vh)}to{transform:translateY(4vh)}}
-@keyframes flap{from{transform:scaleY(1)}to{transform:scaleY(.5)}}hadow: var(--shadow-lg), var(--shadow-accent);
-}
+@keyframes flap{from{transform:scaleY(1)}to{transform:scaleY(.5)}}hadow: var(--shadow-lg), var(--shadow-accent);}
