@@ -1,3 +1,12 @@
+/*background*/
+body { 
+  background-image: url("../Images/Castle.webp");
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-attachment: fixed;
+  background-size: cover;
+}
+
 /* Hero Section */
 .hero {
     height: 100vh;
@@ -22,6 +31,7 @@
   box-shadow: 0 0 60px 20px rgba(255, 150, 40, 0.25);
   opacity: 0.9;
 }
+
 .hero::after{
   content:"";
   position:absolute;
