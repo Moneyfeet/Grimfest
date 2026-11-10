@@ -13,6 +13,8 @@
     --dark-cyan: #008080;
     --Gold: #ffd700;
     --Blue: #1d4fa6;
+    --orange: #ff7a1a;
+    --blood:#b3121d;
     /* font sizing*/
    --heading_font: "Creepster", Impact, fantasy;
     --font-family2: serif;
@@ -54,12 +56,23 @@ body {
   overflow-x: hidden;
 }
 
-.wrapper {
+a {
+  color: var(--orange);
+}
+
+.page-wrapper {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
 }
 
+.wrap {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: var(--spacing-lg);
+  position: relative;
+  z-index: 1;
+}
 /* Header */
 .header {
     color: var(--text-color);
@@ -90,6 +103,11 @@ body {
   cursor: pointer;
   text-decoration: none;
   
+}
+
+section{
+  padding:4.5rem 0;
+  border-top:1px solid var(--line)
 }
 
 .content {
