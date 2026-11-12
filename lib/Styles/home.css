@@ -46,15 +46,17 @@ body {
   z-index:2
 }
 
+a:focus-visible,button:focus-visible{
+  outline:3px solid var(--gold);
+  outline-offset:3px}
+
 .pre {
-  font-family: var(--font-family2);
   letter-spacing: 0.25em;
   font-size: .85rem;
   text-transform: uppercase;
   margin-bottom: 20px;
 }
 .hero h1 {
-  font-family: var(--heading_font);
   font-size:clamp(3.8rem,19vw,11rem);
   line-height:.95;
   text-shadow:0 5px 0 var(--blood)
@@ -90,9 +92,11 @@ body {
 .about {
   background: radial-gradient(circle at top left, var(--color-darker), var(--bg-color));
   padding: var(--spacing-xxl) var(--spacing-lg);
+  color: #fff;
 }
 
 #about-Title {
+  color: var(--text-color);
   font-size: var(--font-size-xl);
   margin-bottom: var(--spacing-lg);
   text-align: center;
