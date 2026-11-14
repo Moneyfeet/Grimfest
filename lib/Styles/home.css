@@ -59,7 +59,8 @@ a:focus-visible,button:focus-visible{
 .hero h1 {
   font-size:clamp(3.8rem,19vw,11rem);
   line-height:.95;
-  text-shadow:0 5px 0 var(--blood)
+  text-shadow:0 5px 0 var(--blood);
+  color:white;
 }
 
 .btns{
@@ -158,6 +159,16 @@ a:focus-visible,button:focus-visible{
   animation:flap ease-in-out infinite alternate
 }
 
+.video{
+  margin-top:1.4rem;
+  aspect-ratio:16/9;
+  border:2px dashed var(--blood);
+  display:grid;
+  place-items:center;
+  text-align:center;
+  padding:1rem;
+  color: var(--Dark-grey)
+}
 
 @keyframes cross{
   from{transform:translateX(-20vw)}
