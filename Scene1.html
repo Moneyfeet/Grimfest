@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>GRIMFEST Intro</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@1,6..72,400&family=Oswald:wght@500;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    color-scheme: dark;
+    --night: #05060a; 
+    --paper: #f3e3c2; 
+    --tungsten: 255, 196, 105; 
+    --blood: #e5412f;
+
+    --L: 220px; 
+    --lx: 50vw; 
+    --ly: 360px; 
+
+    --lvl: 0;
+    box-sizing: border-box;
+    padding-top: env(safe-area-inset-top, 0px); padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
+
+  *, *::before, *::after { box-sizing: inherit; }
+
+  html, body { 
+    margin: 0; 
+    height: 100%; 
+    background: #000; 
+    overflow: hidden; 
+  }
+
+  body { 
+    font-family: "Newsreader", Georgia, serif; 
+    color: var(--paper); 
+  }
+  .hidden { 
+    display: none !important; 
+  }
+
+  /* ---------- start screen ---------- */
+  #start { 
+    position: fixed;
+    inset: 0; 
+    z-index: 50; 
+    background: #000; 
+    display: grid; 
+    place-content: center; 
+    justify-items: center; 
+    gap: 18px; 
+    transition: opacity .5s;
+  }
+
+  #start.gone { 
+    opacity: 0; 
+    pointer-events: none; 
+  }
+
+  button.btn {
+    font: 500 1.1rem "Oswald", Impact, sans-serif; 
+    letter-spacing: .3em; 
+    text-transform: uppercase;
+    color: rgb(var(--tungsten));
+    background: transparent; 
+    border: 1px solid rgba(var(--tungsten), .6);
+    padding: .9em 2.2em; 
+    cursor: pointer;
+    transition: background .2s;
+  }
+
+  button.btn:hover, button.btn:focus-visible { 
+    background: rgba(var(--tungsten), .12); 
+    outline: none; 
+  }
+
+  #start small { 
+    font-style: italic; 
+    color: rgba(var(--tungsten), .5); 
+  }
+
+  /* ---------- scene 1: lamp + content warning ---------- */
+  #s1, #s2 { 
+    position: fixed; 
+    inset: 0; 
+  }
+  main { 
+    position: relative; 
+    text-align: center; 
+    padding: calc(var(--L) + 190px) 24px 0;
+  }
+
+  h1 { 
+    font: 700 clamp(2.4rem, 9vw, 4.6rem)/1 "Oswald", Impact, sans-serif; 
+    letter-spacing: .08em; 
+    text-transform: uppercase; 
+    margin: 0 0 .8rem; 
+    color: #fff; 
+  }
+
+  main p { 
+    font-size: 1.3rem; 
+    font-style: italic; 
+    margin: 0; 
+  }
+
+  .dark, .glow, .cone, .blackout { 
+    position: fixed; 
+    inset: 0; 
+    pointer-events: none; 
+  }
+
+  .dark { 
+    z-index: 5; 
+    background: radial-gradient(ellipse 360px 330px at var(--lx) var(--ly), rgba(5,6,10,0) 0%, rgba(5,6,10,0) 30%, rgba(5,6,10,.82) 62%, var(--night) 90%); 
+  }
+
+  .glow { 
+    z-index: 6; 
+    mix-blend-mode: screen; 
+    opacity: var(--lvl); 
+    background: radial-gradient(ellipse 340px 300px at var(--lx) var(--ly), rgba(var(--tungsten), .20), rgba(var(--tungsten), 0) 80%); 
+  }
+
+  .cone { 
+    z-index: 6; 
+    mix-blend-mode: screen; 
+    opacity: var(--lvl); 
+    background: linear-gradient(to bottom, rgba(var(--tungsten), .22), rgba(var(--tungsten), 0) 75%); 
+  }
+
+  .blackout { 
+    z-index: 7;
+    background: var(--night); 
+    opacity: calc(1 - var(--lvl)); 
+  }
+
+  .lamp { 
+    position: fixed; 
+    top: 0; 
+    left: 0; 
+    width: 0; 
+    height: 0; 
+    transform-origin: 0 0; 
+    z-index: 10; 
+    will-change: transform; 
+  }
+
+  .cord { 
+    position: absolute; 
+    left: -1px; 
+    top: 0; 
+    width: 2px; 
+    height: var(--L); 
+    background: #2a2a2e; 
+  }
+
+  .socket { 
+    position: absolute; 
+    left: -11px; 
+    top: var(--L); 
+    width: 22px; 
+    height: 24px;
+    background: linear-gradient(90deg, #202024, #4a4a50 45%, #202024); 
+    border-radius: 3px 3px 6px 6px; 
+  }
+
+  .halo { 
+    position: absolute; 
+    left: -24px;
+    top: calc(var(--L) + 20px); 
+    width: 48px; 
+    height: 52px; 
+    border-radius: 50%; 
+    opacity: var(--lvl);
+    box-shadow: 0 26px 26px 4px rgba(var(--tungsten), .6), 0 50px 90px 28px rgba(var(--tungsten), .3); 
+  }
+
+  .bulb {
+    position: absolute; 
+    left: -24px; 
+    top: calc(var(--L) + 20px); 
+    width: 48px;
+    height: 52px; 
+    border-radius: 50% 50% 48% 48% / 40% 40% 60% 60%;
+    background: radial-gradient(circle at 50% 70%, #fff8e1 0%, #ffd98a 45%, #ffb84d 100%); 
+    clip-path: inset(36px 0 0 0);
+    filter: brightness(calc(.22 + .78 * var(--lvl))) saturate(calc(.25 + .75 * var(--lvl))); 
+  } 
+  .shade { 
+    position: absolute; 
+    left: -66px; top: calc(var(--L) - 8px); 
+    width: 132px; 
+    height: 68px; 
+    clip-path: polygon(36% 0, 64% 0, 100% 100%, 0 100%);
+    background: linear-gradient(90deg, rgba(255,255,255,.09), rgba(255,255,255,0) 40%, rgba(0,0,0,.25)), linear-gradient(to bottom, #241d1a, #4a3a26 78%, #8a6a35); 
+  }
+
+  .rim { 
+    position: absolute;
+    left: -66px; 
+    top: calc(var(--L) + 52px); 
+    width: 132px; 
+    height: 14px; 
+    border-radius: 50%;
+    background: radial-gradient(ellipse at 50% 60%, #ffe6a8 0%, #e8b55f 55%, #7a5a2e 100%); 
+    filter: brightness(calc(.25 + .75 * var(--lvl))); 
+  }
+
+  /* ---------- scene 2: old monitor ---------- */
+  #s2 { 
+    display: grid; 
+    place-items: center;
+     background: #000; 
+     overflow: hidden; 
+    }
+
+  .monitor { 
+    width: min(66vw, 480px);
+    will-change: transform; 
+    filter: brightness(.3); 
+  }
+
+  .monitor.on { 
+    filter: brightness(1); 
+    transition: filter .5s; 
+  }
+
+  .crt { 
+    background: linear-gradient(160deg, #d8cfb6, #bdb398 70%, #a69c82); 
+    border-radius: 18px 18px 22px 22px; 
+    padding: 9% 9% 11%; box-shadow: inset 0 -6px 10px rgba(0,0,0,.25), 0 0 80px rgba(120,220,190,.0); 
+    transition: box-shadow 1s; 
+  }
+  .monitor.on .crt { 
+    box-shadow: inset 0 -6px 10px rgba(0,0,0,.25), 0 0 120px rgba(120,220,190,.25); 
+  }
+
+  .screen { 
+    position: relative; 
+    aspect-ratio: 4 / 3; 
+    background: #020303; 
+    border-radius: 12% / 14%; 
+    overflow: hidden; 
+    container-type: size;
+    box-shadow: inset 0 0 0 4px #7f765f, inset 0 0 30px rgba(0,0,0,.9); 
+  }
+
+  .raster { 
+    position: absolute; 
+    inset: 0; 
+    transform: scale(1, 0); 
+    background: radial-gradient(ellipse at center, #1d3a33 0%, #0a1512 70%, #050908 100%); 
+  }
+
+  .monitor.on .raster { 
+    animation: crtOn .6s forwards; 
+    transform: none; 
+  }
+
+  @keyframes crtOn { 
+    0% {
+      transform: scale(.02, .004); 
+      background: #fff; 
+    } 
+    35% { 
+      transform: scale(1, .004); 
+      background: #fff; 
+    } 
+    65% { 
+      transform: scale(1, 1); 
+      background: #bfe9dc; } 
+    }
+
+  .scan { 
+    position: absolute; 
+    inset: 0; 
+    background: repeating-linear-gradient(to bottom, rgba(0,0,0,.3) 0 2px, transparent 2px 4px), radial-gradient(ellipse at center, transparent 55%, rgba(0,0,0,.6)); 
+  }
+  
+  .title { 
+    position: absolute; 
+    inset: 0; 
+    display: grid; 
+    place-content: center; 
+    text-align: center; 
+    gap: 3cqw; 
+    opacity: 0; 
+    transition: opacity .6s; 
+  }
+  
+  .title.show { 
+    opacity: 1; 
+    animation: flick 3s steps(1) infinite; 
+  }
+
+  @keyframes flick { 
+    0%, 92%, 96% { opacity: 1; }
+    94%, 97% { opacity: .75; } 
+  }
+
+  .t1 { font: 500 4.4cqw "Oswald", sans-serif; letter-spacing: .14em; text-transform: uppercase; color: #cfe8df; }
+
+  .t2 { font: 700 15cqw/1 "Oswald", Impact, sans-serif; letter-spacing: .06em; color: var(--blood); text-shadow: 0 0 2cqw rgba(229,65,47,.8); }
+  
+  .neck { width: 30%; height: 18px; margin: 0 auto; background: linear-gradient(#a79d84, #8d846c); }
+
+  .base { width: 52%; height: 22px; margin: 0 auto; background: linear-gradient(#cfc6ad, #988f76); border-radius: 8px 8px 14px 14px; }
+
+  #replay { position: fixed; z-index: 20; left: 50%; bottom: calc(24px + env(safe-area-inset-bottom, 0px)); transform: translateX(-50%); opacity: 0; pointer-events: none; transition: opacity .6s; }
+  #replay.show { opacity: 1; pointer-events: auto; }
+</style>
+</head>
+<body>
+
+<div id="start">
+  <button class="btn" id="begin" type="button">Begin</button>
+  <small>use headphones for optimal audio experience</small>
+</div>
+
+<div id="s1">
+  <main>
+    <h1>Content warning</h1>
+    <p>Viewer discretion is advised.</p>
+  </main>
+  <div class="dark"></div><div class="glow"></div><div class="cone" id="cone"></div><div class="blackout"></div>
+  <div class="lamp" id="lamp">
+    <div class="cord"></div><div class="socket"></div><div class="halo"></div>
+    <div class="shade"></div><div class="rim"></div><div class="bulb"></div>
+  </div>
+</div>
+
+<div id="s2" class="hidden">
+  <div class="monitor" id="monitor">
+    <div class="crt">
+      <div class="screen" id="screen">
+        <div class="raster"></div>
+        <div class="title" id="title"><div class="t1">KE6 Vanguard × COVN present</div><div class="t2">GRIMFEST</div></div>
+        <div class="scan"></div>
+      </div>
+    </div>
+    <div class="neck"></div><div class="base"></div>
+  </div>
+</div>
+
+<button class="btn" id="replay" type="button">Replay</button>
+
+<script>
+(function () {
+  var root = document.documentElement;
+  var $ = function (id) { return document.getElementById(id); };
+  var lamp = $('lamp'), cone = $('cone'), monitor = $('monitor'), screenEl = $('screen');
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* ---------------- synthesised audio ---------------- */
+  var AC, master, humG, noiseBuf;
+
+  function initAudio() {
+    AC = new (window.AudioContext || window.webkitAudioContext)();
+    master = AC.createGain(); master.gain.value = 0.8; master.connect(AC.destination);
+    humG = AC.createGain(); humG.gain.value = 0;
+    var o = AC.createOscillator(); o.type = 'sawtooth'; o.frequency.value = 100;
+    var f = AC.createBiquadFilter(); f.type = 'lowpass'; f.frequency.value = 380;
+    o.connect(f); f.connect(humG); humG.connect(master); o.start();
+    var n = AC.sampleRate * 2, b = AC.createBuffer(1, n, AC.sampleRate), d = b.getChannelData(0);
+    for (var i = 0; i < n; i++) d[i] = Math.random() * 2 - 1;
+    noiseBuf = b;
+  }
+
+  function noise(dur, freq, q, vol, type) {
+    var s = AC.createBufferSource(); s.buffer = noiseBuf; s.loop = true;
+    var f = AC.createBiquadFilter(); f.type = type || 'bandpass'; f.frequency.value = freq; f.Q.value = q;
+    var g = AC.createGain(), t = AC.currentTime;
+    g.gain.setValueAtTime(0, t); g.gain.linearRampToValueAtTime(vol, t + dur * 0.4); g.gain.linearRampToValueAtTime(0, t + dur);
+    s.connect(f); f.connect(g); g.connect(master); s.start(t); s.stop(t + dur + 0.05);
+  }
+
+  function tone(type, freq, vol, dur, when, drop) {
+    var t = AC.currentTime + (when || 0), o = AC.createOscillator(), g = AC.createGain();
+    o.type = type; o.frequency.setValueAtTime(freq, t);
+    if (drop) o.frequency.exponentialRampToValueAtTime(freq * 0.5, t + dur * 0.8);
+    g.gain.setValueAtTime(vol, t); g.gain.exponentialRampToValueAtTime(0.001, t + dur);
+    o.connect(g); g.connect(master); o.start(t); o.stop(t + dur + 0.05);
+  }
+  
+  var sfx = {
+    click: function () { noise(0.06, 3000, 1, 0.25); },
+    phas: function () {                                   // whispery breath + three knocks
+      noise(2.0, 1700, 9, 0.35); noise(1.8, 900, 6, 0.3);
+      tone('sine', 80, 0.9, 0.3, 0.4, true); tone('sine', 80, 0.9, 0.3, 0.95, true); tone('sine', 70, 1, 0.35, 1.5, true);
+    },
+    power: function () { tone('sine', 60, 1, 0.5, 0, true); noise(0.5, 6000, 1, 0.25, 'highpass'); tone('sine', 4200, 0.02, 1.6, 0.1); },
+    sting: function () { tone('sawtooth', 55, 0.18, 3.5, 0); tone('sawtooth', 58.5, 0.18, 3.5, 0); noise(2.5, 200, 1, 0.3, 'lowpass'); }
+  };
+
+  /* ---------------- light level + flicker ---------------- */
+  function setLevel(v) {
+    root.style.setProperty('--lvl', v);
+    if (humG) humG.gain.setTargetAtTime(v * 0.07, AC.currentTime, 0.01);   // the hum follows the light
+  }
+  var flickerTimer;
+  function flicker(seq) {                                // seq: [level, ms to hold] pairs
+    if (reduce) seq = [[0.5, 160], seq[seq.length - 1]];
+    clearTimeout(flickerTimer);
+    var i = 0;
+    (function step() {
+      var s = seq[i++]; setLevel(s[0]);
+      if (i < seq.length) flickerTimer = setTimeout(step, s[1] * (0.75 + Math.random() * 0.5));
+    })();
+  }
+  var ON  = [[0.9, 50], [0, 70], [0.6, 40], [0, 120], [1, 60], [0.2, 50], [0, 90], [0.85, 45], [0.3, 70], [1, 0]];
+  var MID = [[0.4, 50], [1, 60], [0.1, 40], [0.9, 80], [0.3, 50], [1, 0]];
+  var OFF = [[0.7, 40], [1, 60], [0.25, 50], [0.8, 70], [0.1, 60], [0.5, 40], [0, 0]];
+
+  /* ---------------- pendulum + monitor zoom ---------------- */
+  var px, Lc, R, theta = 0, omega = 0, last = performance.now(), zoom = null;
+  function layout() {
+    px = innerWidth / 2; Lc = Math.max(150, Math.min(240, innerHeight * 0.27)); R = Lc + 46;
+    root.style.setProperty('--L', Lc + 'px');
+  }
+  layout(); addEventListener('resize', layout);
+
+  function startZoom() {
+    var m = monitor.getBoundingClientRect(), s = screenEl.getBoundingClientRect();
+    var cx = s.left + s.width / 2, cy = s.top + s.height / 2;
+    zoom = { dx: innerWidth / 2 - cx, dy: innerHeight / 2 - cy, k: Math.max(innerWidth / s.width, innerHeight / s.height) * 1.05, t0: performance.now(), dur: 2800 };
+    monitor.style.transformOrigin = (cx - m.left) + 'px ' + (cy - m.top) + 'px';
+  }
+
+  function frame(now) {
+    var dt = Math.min(0.033, (now - last) / 1000); last = now;
+    for (var i = 0; i < 2; i++) { omega += (-9 * Math.sin(theta) - 0.32 * omega) * dt / 2; theta += omega * dt / 2; }
+    var s = Math.sin(theta), c = Math.cos(theta);
+    lamp.style.transform = 'translateX(' + px + 'px) rotate(' + (-theta) + 'rad)';
+    var rr = Lc + 60, rx = px + rr * s, ry = rr * c;
+    root.style.setProperty('--lx', (rx + 230 * s) + 'px');
+    root.style.setProperty('--ly', (ry + 230 * c) + 'px');
+    var nw = 62, fw = 280, fx = rx + 640 * s, fy = ry + 640 * c;
+    cone.style.clipPath = 'polygon(' + (rx - nw * c) + 'px ' + (ry + nw * s) + 'px,' + (rx + nw * c) + 'px ' + (ry - nw * s) + 'px,' +
+      (fx + fw * c) + 'px ' + (fy - fw * s) + 'px,' + (fx - fw * c) + 'px ' + (fy + fw * s) + 'px)';
+    if (zoom) {
+      var p = Math.min(1, (now - zoom.t0) / zoom.dur), e = p < 0.5 ? 4 * p * p * p : 1 - Math.pow(-2 * p + 2, 3) / 2;
+      monitor.style.transform = 'translate(' + zoom.dx * e + 'px,' + zoom.dy * e + 'px) scale(' + (1 + (zoom.k - 1) * e) + ')';
+    }
+    requestAnimationFrame(frame);
+  }
+  requestAnimationFrame(frame);
+
+  /* ---------------- timeline (ms after pressing Begin) ---------------- */
+  function at(ms, fn) { setTimeout(fn, ms); }
+  $('begin').addEventListener('click', function () {
+    initAudio(); $('start').classList.add('gone');
+    at(500,   function () { flicker(ON); sfx.click(); });                       // light flickers on, reveals the warning
+    at(3500,  function () { omega += 2.6; flicker(MID); sfx.phas(); });        // swing + flicker (3s into the lit scene)
+    at(5500,  function () { flicker(OFF); sfx.click(); });                     // light off after 5s total
+    at(6800,  function () { $('s1').classList.add('hidden'); $('s2').classList.remove('hidden'); });
+    at(7700,  function () { monitor.classList.add('on'); sfx.power(); });      // old monitor turns on
+    at(9500,  startZoom);                                                      // zoom into the screen
+    at(10800, function () { $('title').classList.add('show'); sfx.sting(); }); // title card
+    at(15000, function () { $('replay').classList.add('show'); });
+  });
+  $('replay').addEventListener('click', function () { location.reload(); });
+})();
+</script>
+</body>
+</html>
