@@ -17,37 +17,29 @@
   box-sizing: border-box;
 }
 
-.wrap{
+.wrap {
   max-width:60rem;
   margin:0 auto;
   padding:0 1.2rem
 }
 
-section{
+section {
   padding:var(--spacing-xxl) var(--spacing-lg);
   border-bottom:1px solid #2e2030
 }
 
-h2{
+h2 {
   font-size:2.4rem;
   margin:0 0 .3em;
 
 }
 
-h2::before{
-  content:"";
-  display:block;
-  font-size:1.4rem;
-  line-height:1;
-  margin-bottom:.3rem
-}
-
-h3{
+h3 {
   font-size:1.15rem;
   margin:0 0 .3em
 }
 
-h3,nav,.tag,th{
+h3,nav,.tag,th {
   font-family:"Special Elite","Courier New",monospace
 }
 
@@ -57,6 +49,7 @@ h4 {
   margin: 0 0 0.5em;
 }
 
+/* role section */
 .role-cards {
   display: grid;
   gap: 1.6rem 1.4rem;
@@ -73,20 +66,41 @@ h4 {
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.role:hover .pic{
+.pic, .pic img {
+  width: 100px;
+  height: 100px;
+  aspect-ratio: 1/1;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: var(--spacing-sm);
+  border: 3px solid var(--muted);
+  transition: border-color 0.3s ease;
+}
+.role:hover .pic {
   border-color:var(--accent)
 }
 
-.role h4{
+.role h4 {
   margin:.8rem 0 .2rem;
   font:1.1rem "Special Elite","Courier New",monospace;
   color:var(--accent)
 }
-.role p{
+
+.role p {
   margin:0;
   font-size:.97rem;
   color:var(--muted)
 }
+/*process section*/
+.process {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-lg);
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
 
 .eye-box {
   position: fixed;
@@ -100,6 +114,7 @@ h4 {
   display: flex;
   justify-content: center;
   align-items: center;
+
 }
 
 .eye {
