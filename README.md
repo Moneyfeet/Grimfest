@@ -1,5 +1,5 @@
 # Grimfest
-Grimfest is a college project for a hallowween-themed event.
+Grimfest is a college project for a halloween-themed event.
 There are two main pages:
 <ol>
   <li>Advertisement page</li>
