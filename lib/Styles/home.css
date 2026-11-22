@@ -11,6 +11,8 @@ body {
 .hero {
     height: 100vh;
     display: flex;
+    position: relative;
+    overflow: hidden;
     justify-content: space-between;
     align-items: center;
     text-align: center;
@@ -19,6 +21,7 @@ body {
     font-size: 2rem;
     padding: var(--spacing-xl) var(--spacing-md);
 }
+
 .hero::before{
   content: "";
   position: absolute;
@@ -185,16 +188,6 @@ a:focus-visible,button:focus-visible{
 }
 
 @media (max-width: 768px) {
-  .about-content {
-    flex-direction: column;
-    text-align: center;
-  }
+  /* Adjust the layout for smaller screens */
 
-  #giphy {
-    margin-top: var(--spacing-lg);
-  }
-  .hero {
-    font-size: 1.5rem;
-    padding: var(--spacing-lg) var(--spacing-md);
-  }
 }
